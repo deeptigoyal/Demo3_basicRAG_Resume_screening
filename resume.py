@@ -9,6 +9,7 @@ from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings  
 from langchain_core.runnables import RunnableLambda, RunnableMap
+from langhchain_core import ChatOpenAI, OpenAIEmbeddings
 import google.generativeai as genai
 from dotenv import load_dotenv
 import shutil
@@ -33,6 +34,7 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 # # Setup embedding model
 embedding_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+#embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
 
 # Create or load Chroma vector store
 VECTOR_STORE_DIR = "chroma_store"
@@ -158,4 +160,5 @@ def main():
             st.download_button("Download Analysis", analysis, file_name="resume_analysis.txt")
 
 if __name__ == "__main__":
+
     main()
