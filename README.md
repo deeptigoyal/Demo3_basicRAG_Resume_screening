@@ -105,93 +105,6 @@ Usage
 - View structured AI-generated feedback
 - Download analysis as a text report
 
----
-
-## 📦 Tech Stack
-
-- **LangChain** for building chains, embeddings, and document processing
-- **LangChain Expression Language (LCEL)** for modular pipeline workflows
-- **Streamlit** for the frontend web interface
-- **Google Generative AI** (Gemini & Embeddings) for LLM and vector representations
-- **Chroma** as a persistent vector store
-- **dotenv** for API key and environment config
-
----
-
-## 🛠️ Setup Instructions
-````
-
-1. **Create and activate a virtual environment**
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate   # or venv\Scripts\activate on Windows
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Add your API key**
-   Create a `.env` file in the project root and add:
-
-   ```
-   GOOGLE_API_KEY=your_google_api_key
-   ```
-
-4. **Run the app**
-
-   ```bash
-   streamlit run app.py
-   ```
-
----
-
-## 📄 File Structure
-
-```plaintext
-├── resume.py                  # Main Streamlit app
-├── chroma_store/           # Folder to store vector DB files
-├── .env                    # Contains API key (not committed)
-├── requirements.txt        # Python dependencies
-└── README.md               # This file
-```
-
----
-
-## 📚 LangChain Concepts Used
-
-* ✅ **Components & Modules**: PromptTemplate, LLM, Output Parsers
-* 📄 **Document Loaders**: PDF, DOCX, TXT via LangChain community
-* ✂️ **Text Splitting**: RecursiveCharacterTextSplitter
-* 🧠 **Embeddings**: GoogleGenerativeAIEmbeddings
-* 🗃️ **Vector DB**: Chroma for persistent storage
-* 🧩 **LCEL**: RunnableMap, pipes (`|`), and chain composition
-* 🧪 **Chains**: Custom chain for job/resume comparison
-* 📤 **Deployment**: Streamlit as the UI layer
-
----
-
-## 📈 Example Output
-
-```
-Structured Analysis:
-- Strengths: Relevant experience, strong communication, etc.
-- Weaknesses: Lacks X, missing Y...
-
-Suitability Score: 84%
-```
-
----
-
-## 🧑‍💼 Ideal For
-
-* HR professionals and recruiters
-* Resume screening automation tools
-* Educational and project demos for LangChain and LCEL
-
 
 -------------------------------------------------------
 **Which patterns your code actually uses**
@@ -336,12 +249,93 @@ It does NOT use ReAct because LLM does not choose tools.
 It does NOT use REWOO because no rewriting/execution/organization loop exists.
 It does NOT use reflection because no iterative refinement exists.
 Your architecture aligns with perception → cognition → action, but lacks learning and collaboration.
-The system is a deterministic LCEL pipeline, not a multi-agent reasoning system.
+The system is a deterministic LCEL pipeline, not a multi-agent reasoning system
 
 
+---
+## 📦 Tech Stack
 
+- **LangChain** for building chains, embeddings, and document processing
+- **LangChain Expression Language (LCEL)** for modular pipeline workflows
+- **Streamlit** for the frontend web interface
+- **Google Generative AI** (Gemini & Embeddings) for LLM and vector representations
+- **Chroma** as a persistent vector store
+- **dotenv** for API key and environment config
 
+---
 
+## 🛠️ Setup Instructions
+````
 
+1. **Create and activate a virtual environment**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # or venv\Scripts\activate on Windows
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Add your API key**
+   Create a `.env` file in the project root and add:
+
+   ```
+   GOOGLE_API_KEY=your_google_api_key
+   ```
+
+4. **Run the app**
+
+   ```bash
+   streamlit run app.py
+   ```
+
+---
+
+## 📄 File Structure
+
+```plaintext
+├── resume.py                  # Main Streamlit app
+├── chroma_store/           # Folder to store vector DB files
+├── .env                    # Contains API key (not committed)
+├── requirements.txt        # Python dependencies
+└── README.md               # This file
+```
+
+---
+
+## 📚 LangChain Concepts Used
+
+* ✅ **Components & Modules**: PromptTemplate, LLM, Output Parsers
+* 📄 **Document Loaders**: PDF, DOCX, TXT via LangChain community
+* ✂️ **Text Splitting**: RecursiveCharacterTextSplitter
+* 🧠 **Embeddings**: GoogleGenerativeAIEmbeddings
+* 🗃️ **Vector DB**: Chroma for persistent storage
+* 🧩 **LCEL**: RunnableMap, pipes (`|`), and chain composition
+* 🧪 **Chains**: Custom chain for job/resume comparison
+* 📤 **Deployment**: Streamlit as the UI layer
+
+---
+
+## 📈 Example Output
+
+```
+Structured Analysis:
+- Strengths: Relevant experience, strong communication, etc.
+- Weaknesses: Lacks X, missing Y...
+
+Suitability Score: 84%
+```
+
+---
+
+## 🧑‍💼 Ideal For
+
+* HR professionals and recruiters
+* Resume screening automation tools
+* Educational and project demos for LangChain and LCEL
 
 
