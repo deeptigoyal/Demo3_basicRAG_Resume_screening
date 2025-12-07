@@ -12,8 +12,9 @@ _Reflection, Tool, Planning, ReAct, and ReWOO_ are common agent patterns that gu
 
 All these patterns are modular, but they do not formally implement full perception–cognition–action–learning architectures; they simply borrow the structure to make reasoning cleaner and more reliable.
 
-
-ABOUT USECASE:
+--------------------------------------
+**ABOUT USECASE:**
+--------------------------------------
 
 Resume Screening Application with LangChain
 
@@ -190,5 +191,157 @@ Suitability Score: 84%
 * HR professionals and recruiters
 * Resume screening automation tools
 * Educational and project demos for LangChain and LCEL
+
+
+-------------------------------------------------------
+**Which patterns your code actually uses**
+-------------------------------------------------------
+
+A. TOOL PATTERN — YES (Strongly present)
+
+What it means:
+Tools = external capabilities (file loaders, embeddings, vector DB) that the LLM calls indirectly.
+
+Where in your code:
+
+PyPDFLoader, Docx2txtLoader, TextLoader → document extraction tools
+
+GoogleGenerativeAIEmbeddings → embedding tool
+
+Chroma → vector store tool
+
+RunnableLambda inside RunnableMap → mini-tools to preprocess inputs
+
+➡️ Your LLM is NOT doing everything. It relies on tools to extract text, embed, store, and search.
+This is a classic TOOL pattern implementation.
+
+B. PLANNING PATTERN — PARTIALLY (Weak)
+
+Why only partial:
+Planning = the agent or pipeline decides multi-step reasoning and executes steps in sequence.
+
+Where in your code:
+Not an agent.
+You manually control the sequence:
+
+Load → 2. Extract → 3. Split → 4. Analyze → 5. Parse score → 6. Store.
+
+LLM is NOT planning;
+your code is the plan.
+
+➡️ So manual planning, not “planner-agent” style.
+
+C. REACT PATTERN — NO
+
+🔴 Your code does NOT implement ReAct (Reasoning + Acting)
+
+Why ReAct does NOT apply:
+
+ReAct requires LLM to:
+Think → decide → call tool → observe → think → respond
+
+Here the LLM does NOT:
+
+decide which tool to use
+
+see tool outputs as "observations"
+
+do iterative loops
+
+The LLM only receives a fixed prompt and returns one shot output.
+
+➡️ No chain-of-thought reasoning + tool action loop → No ReAct.
+
+D. REWOO PATTERN — NO
+
+(REWrite, Execute, Write, Organize, Optimize)
+
+Why REWOO does NOT apply:
+
+REWOO is multi-agent, multi-document reasoning workflow
+
+Used for research, aggregation from multiple sources
+
+Needs rewriting tasks → executing tools → organizing evidence
+
+Your pipeline is single query → single LLM call.
+It does not:
+
+rewrite plan
+
+perform tool-calls mid-workflow
+
+merge results
+
+optimize tasks
+
+➡️ Therefore REWOO is not applicable.
+
+E. REFLECTION PATTERN — NO
+
+Reflection means LLM:
+
+generates a first answer
+
+critiques it
+
+refines it
+
+produces improved answer
+
+Your code:
+
+calls LLM once
+
+no improvement loop
+
+no critique step
+
+no self-consistency check
+
+➡️ No reflection.
+
+2️⃣ How  architecture maps to modular agent architecture
+
+
+| Module                   | Present?                   | Where                                          |
+| ------------------------ | -------------------------- | ---------------------------------------------- |
+| **Perception Module**    | ✔️ YES                     | File loaders + extract_text_from_resume()      |
+| **Cognitive Module**     | ✔️ YES                     | LLM analysis via PromptTemplate + Gemini       |
+| **Action Module**        | ✔️ YES (but deterministic) | Vectorstore.add_documents(), formatting output |
+| **Learning Module**      | ❌ NO                       | No model updating or RL loops                  |
+| **Collaboration Module** | ❌ NO                       | No multi-agent behavior                        |
+
+
+
+Why "learning" is NO
+
+Vector DB ≠ learning
+
+Storing chunks is memory, not training
+
+Your LLM does not modify parameters
+
+Why "collaboration" is NO
+
+Only one LLM
+
+No agent-to-agent communication
+
+3️⃣ Summarized Explanation in 7 Lines
+
+Your code uses TOOL pattern to extract text, embed, and store data.
+It uses manual planning, not AI planning.
+It does NOT use ReAct because LLM does not choose tools.
+It does NOT use REWOO because no rewriting/execution/organization loop exists.
+It does NOT use reflection because no iterative refinement exists.
+Your architecture aligns with perception → cognition → action, but lacks learning and collaboration.
+The system is a deterministic LCEL pipeline, not a multi-agent reasoning system.
+
+
+
+
+
+
 
 
